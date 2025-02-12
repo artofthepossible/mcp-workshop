@@ -1,0 +1,26 @@
+{
+  "name": "MCP Workshop",
+  "dockerComposeFile": ["compose.yaml"],
+  "service": "workspace",
+  "workspaceFolder": "/workspace",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "installDockerBuildx": true,
+      "installDockerComposeSwitch": true,
+      "version": "latest",
+      "dockerDashComposeVersion": "v2"
+    }
+  },
+
+  "postCreateCommand": "pip install -r bot/requirements.txt",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python", 
+        "ms-python.vscode-pylance",
+        "ms-python.debugpy"
+      ]
+    }
+  }
+}
