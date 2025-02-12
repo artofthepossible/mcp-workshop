@@ -3,10 +3,7 @@ services:
     image: mcr.microsoft.com/devcontainers/python:1-3.12-bullseye
     volumes:
       - ../:/workspace
-      - socket-proxy:/tmp/proxy
     command: sleep infinity
-    environment:
-      DOCKER_HOST: unix:///tmp/proxy/docker.sock
 
   # Populate a volume simply to be used in the guide. Eventually, this won't be needed
   # once the volume mounting mutation works correctly.
@@ -16,30 +13,7 @@ services:
     volumes:
       - sqlite-data:/data
       - ../chatbot/sample-data:/sample-data
- 
-  # This project is configured to use Testcontainers and some of the tests need to
-  # mount volumes. When tests run, they will use path names that exist in the container.
-  # The path /workspaces/catalog-service-node inside the container is different than 
-  # the path on the host, causing the mounts to be invalid. This mutator will
-  # rewrite the paths to ensure they work correctly.
-  #
-  # This proxy exposes a new socket, which is then shared with the app-workspace container.
-  #
-  # TODO: The usage of $PWD doesn't work on Windows.
-  socket-proxy:
-    image: mikesir87/docker-socket-proxy
-    volumes:
-      - socket-proxy:/tmp/proxy
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      CONFIG_DATA: |
-        mutators:
-          - type: mountPath
-            from: /workspace
-            to: $PWD
-      LISTEN_SOCKET_PATH: /tmp/proxy/docker.sock
 
 volumes:
-  socket-proxy:
   sqlite-data:
     name: sqlite-data
