@@ -225,7 +225,7 @@ Fortunately, we can use the [mcp/sqlite](https://hub.docker.com/r/mcp/sqlite) to
         "--rm",
         "-i",
         "-v",
-        "./sample-data:/mcp",
+        "sqlite-data:/mcp",
         "mcp/sqlite",
         "--db-path",
         "/mcp/test.db"

@@ -7,6 +7,15 @@ services:
     command: sleep infinity
     environment:
       DOCKER_HOST: unix:///tmp/proxy/docker.sock
+
+  # Populate a volume simply to be used in the guide. Eventually, this won't be needed
+  # once the volume mounting mutation works correctly.
+  db-volume-setup:
+    image: alpine
+    command: cp /sample-data/test.db /data
+    volumes:
+      - sqlite-data:/data
+      - ../chatbot/sample-data:/sample-data
  
   # This project is configured to use Testcontainers and some of the tests need to
   # mount volumes. When tests run, they will use path names that exist in the container.
@@ -15,6 +24,8 @@ services:
   # rewrite the paths to ensure they work correctly.
   #
   # This proxy exposes a new socket, which is then shared with the app-workspace container.
+  #
+  # TODO: The usage of $PWD doesn't work on Windows.
   socket-proxy:
     image: mikesir87/docker-socket-proxy
     volumes:
@@ -30,3 +41,5 @@ services:
 
 volumes:
   socket-proxy:
+  sqlite-data:
+    name: sqlite-data
