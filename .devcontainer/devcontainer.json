@@ -7,12 +7,11 @@
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
       "installDockerBuildx": true,
       "installDockerComposeSwitch": true,
-      "version": "latest",
-      "dockerDashComposeVersion": "v2"
+      "dockerDashComposeVersion": "v2.32.2"
     }
   },
 
-  "postCreateCommand": "pip install -r bot/requirements.txt",
+  "postCreateCommand": "pip install -r chatbot/requirements.txt",
 
   "customizations": {
     "vscode": {
