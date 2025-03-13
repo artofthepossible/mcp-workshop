@@ -37,7 +37,7 @@ This workshop is intended to teach you the basics of the Model Context Protocol 
     cp chatbot/.env.example chatbot/.env
     ```
 
-5. Create a `bot/.env` file and add your API key:
+5. Update the newly created `chatbot/.env` file and add your API key:
 
    ```plaintext
    LLM_SOURCE=openai
